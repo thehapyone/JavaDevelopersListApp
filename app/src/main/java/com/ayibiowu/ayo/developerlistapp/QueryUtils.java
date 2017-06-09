@@ -168,9 +168,15 @@ public final class QueryUtils {
 
                 JSONObject currentData = profileArray.getJSONObject(i);
                 String profileName = currentData.getString("login");
-                String userName =  extractMoreInfo(profileName);
+               
+               /* The code below send a new request to the Github API
+                 to be able to update the profile name. 
+                 This dreastically slows down the app. Uncomment if you want this feature*/
 
-                DeveloperProfile developerProfile1 = new DeveloperProfile(userName, profileName, "Lagos, Nigeria");
+                //String profileName =  extractMoreInfo(userName);
+                 profileName = userName;
+
+                DeveloperProfile developerProfile1 = new DeveloperProfile(profileName, userName, "Lagos, Nigeria");
                 developerProfiles.add(developerProfile1);
 
             }
