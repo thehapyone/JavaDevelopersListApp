@@ -38,10 +38,6 @@ public class ProfilePage extends AppCompatActivity {
         userName = getIntent().getStringExtra("USERNAME");
         profileName = getIntent().getStringExtra("FULLNAME");
 
-        // Update the Profile Name
-        TextView myName = (TextView) findViewById(R.id.profile_name);
-        myName.setText(profileName);
-
         // Using StrictMode to enforce the Networking Thread, since no AsyncTask is implemented
         // The activity will crash.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -103,8 +99,10 @@ public class ProfilePage extends AppCompatActivity {
             // build up a list of user objects with the corresponding data.
             JSONObject baseJsonResponse = new JSONObject(jsonResponse);
             avatarLink = baseJsonResponse.getString("avatar_url");
+            // update the profile name
+            profileName = baseJsonResponse.getString("name");
 
-            Log.i("Test", avatarLink);
+            //Log.i("Test", avatarLink);
 
         } catch (JSONException e) {
 
@@ -112,6 +110,10 @@ public class ProfilePage extends AppCompatActivity {
         }
 
         if (avatarLink != null) {
+            // Update the Profile Name
+            TextView myName = (TextView) findViewById(R.id.profile_name);
+            myName.setText(profileName);
+            
             // Callimg the imageLoader class for viewing the image
 
             ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
